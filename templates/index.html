@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Raspberry Pi Cube Vision</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <main class="page-grid">
+    <section class="quadrant feed-quadrant" id="quadrant-1">
+      <header class="feed-header">
+        <h2>Quadrant 1: Camera 0</h2>
+      </header>
+      <div class="feed-shell">
+        <img id="feed-0" class="camera-feed" src="{{ url_for('stream', camera_id='0') }}" alt="Camera 0 stream" />
+        <div class="roi-overlay" id="overlay-0" data-camera-id="0"></div>
+      </div>
+    </section>
+
+    <section class="quadrant panel" id="quadrant-2">
+      <h1>Cube Capture Controls</h1>
+
+      <div class="card">
+        <h3>ROI Editor</h3>
+        <label for="active-camera">Editable Camera</label>
+        <select id="active-camera">
+          <option value="0">Camera 0 (Quadrant 1)</option>
+          <option value="1">Camera 1 (Quadrant 3)</option>
+        </select>
+        <p class="hint">Drag ROI boxes to move. Drag the corner handle to resize.</p>
+      </div>
+
+      <div class="card button-grid">
+        <button id="detect-btn" type="button">Detect Colors</button>
+        <button id="capture-btn" type="button">Capture Cube State</button>
+        <button id="save-rois-btn" type="button">Save ROI Layout</button>
+        <button id="reset-rois-btn" type="button">Reset ROI Defaults</button>
+      </div>
+
+      <div class="card">
+        <h3>Status</h3>
+        <div id="status-box">Waiting for input.</div>
+      </div>
+    </section>
+
+    <section class="quadrant feed-quadrant" id="quadrant-3">
+      <header class="feed-header">
+        <h2>Quadrant 3: Camera 1</h2>
+      </header>
+      <div class="feed-shell">
+        <img id="feed-1" class="camera-feed" src="{{ url_for('stream', camera_id='1') }}" alt="Camera 1 stream" />
+        <div class="roi-overlay" id="overlay-1" data-camera-id="1"></div>
+      </div>
+    </section>
+
+    <section class="quadrant panel" id="quadrant-4">
+      <h2>Solver and UART</h2>
+
+      <div class="card">
+        <h3>Captured Cube State</h3>
+        <pre id="cube-state-view">No captured state yet.</pre>
+      </div>
+
+      <div class="card button-grid">
+        <label class="checkbox-line">
+          <input id="capture-first" type="checkbox" checked />
+          Capture before solve
+        </label>
+        <label class="checkbox-line">
+          <input id="send-uart" type="checkbox" />
+          Send solution to ESP32 over UART
+        </label>
+        <button id="solve-btn" type="button">Solve (kociemba)</button>
+      </div>
+
+      <div class="card">
+        <h3>Solution Output</h3>
+        <pre id="solution-view">No solution yet.</pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

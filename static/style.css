@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+:root {
+  --bg-main: #f4efe6;
+  --bg-alt: #dde8ea;
+  --panel: rgba(250, 252, 252, 0.88);
+  --panel-border: #8aa4ad;
+  --ink: #11303f;
+  --muted: #3f6373;
+  --accent: #0b8c95;
+  --accent-strong: #056b72;
+  --warning: #c05c24;
+  --roi: #0385a8;
+  --roi-text: #052e3e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(218, 150, 73, 0.18), transparent 45%),
+    radial-gradient(circle at 82% 74%, rgba(43, 148, 163, 0.20), transparent 40%),
+    linear-gradient(130deg, var(--bg-main), var(--bg-alt));
+  min-height: 100vh;
+}
+
+.page-grid {
+  height: 100vh;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+}
+
+.quadrant {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  box-shadow: 0 12px 35px rgba(20, 52, 66, 0.12);
+}
+
+.feed-quadrant {
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-header {
+  padding: 8px 14px;
+  background: linear-gradient(90deg, rgba(6, 101, 109, 0.16), rgba(238, 162, 72, 0.2));
+  border-bottom: 1px solid rgba(70, 108, 122, 0.35);
+}
+
+.feed-header h2 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+}
+
+.feed-shell {
+  position: relative;
+  flex: 1;
+  min-height: 260px;
+  background: #001a21;
+}
+
+.camera-feed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.roi-overlay {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+
+.roi-overlay.locked {
+  pointer-events: none;
+}
+
+.roi-box {
+  position: absolute;
+  border: 2px solid var(--roi);
+  background: rgba(3, 133, 168, 0.14);
+  color: var(--roi-text);
+  border-radius: 8px;
+  backdrop-filter: blur(1px);
+  cursor: move;
+  user-select: none;
+}
+
+.roi-face {
+  position: absolute;
+  left: 4px;
+  top: 3px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(238, 245, 248, 0.88);
+  border-radius: 4px;
+  padding: 1px 3px;
+}
+
+.roi-detect {
+  position: absolute;
+  left: 4px;
+  bottom: 3px;
+  font-size: 0.68rem;
+  font-family: 'IBM Plex Mono', monospace;
+  background: rgba(238, 245, 248, 0.9);
+  border-radius: 4px;
+  padding: 1px 3px;
+}
+
+.roi-handle {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f6a449;
+  border: 2px solid #0e5f66;
+  cursor: nwse-resize;
+}
+
+.panel {
+  padding: 14px;
+  overflow: auto;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+.panel h1 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.panel h2 {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.card {
+  background: rgba(250, 252, 253, 0.9);
+  border: 1px solid rgba(112, 146, 157, 0.55);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+label,
+.hint,
+#status-box {
+  font-size: 0.9rem;
+}
+
+select,
+button {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 93, 112, 0.45);
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  padding: 9px 10px;
+  font-size: 0.92rem;
+}
+
+select {
+  background: white;
+  margin-top: 5px;
+}
+
+button {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.06);
+}
+
+.button-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.checkbox-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-line input {
+  width: 16px;
+  height: 16px;
+}
+
+#status-box {
+  color: var(--muted);
+  min-height: 2.6em;
+}
+
+pre {
+  margin: 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(13, 48, 63, 0.93);
+  color: #eef5f8;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.77rem;
+  line-height: 1.35;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 1024px) {
+  .page-grid {
+    height: auto;
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, minmax(280px, auto));
+  }
+}

@@ -1,0 +1,566 @@
+{
+  "captured_at": 1770993287.1166346,
+  "faces": {
+    "U": [
+      "B",
+      "W",
+      "W",
+      "B",
+      "W",
+      "B",
+      "B",
+      "G",
+      "R"
+    ],
+    "R": [
+      "B",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W"
+    ],
+    "F": [
+      "W",
+      "B",
+      "W",
+      "B",
+      "B",
+      "W",
+      "B",
+      "B",
+      "B"
+    ],
+    "D": [
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W"
+    ],
+    "L": [
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W"
+    ],
+    "B": [
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W",
+      "W"
+    ]
+  },
+  "complete": true,
+  "kociemba_input": null,
+  "kociemba_error": "Center colors are not unique; cube orientation cannot be inferred",
+  "detections": {
+    "0": [
+      {
+        "id": "U0",
+        "face": "U",
+        "index": 0,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.213,
+        "label": "B21%"
+      },
+      {
+        "id": "U1",
+        "face": "U",
+        "index": 1,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "U2",
+        "face": "U",
+        "index": 2,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "U3",
+        "face": "U",
+        "index": 3,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.26,
+        "label": "B26%"
+      },
+      {
+        "id": "U4",
+        "face": "U",
+        "index": 4,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "U5",
+        "face": "U",
+        "index": 5,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.462,
+        "label": "B46%"
+      },
+      {
+        "id": "U6",
+        "face": "U",
+        "index": 6,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.439,
+        "label": "B44%"
+      },
+      {
+        "id": "U7",
+        "face": "U",
+        "index": 7,
+        "color": "G",
+        "color_name": "Green",
+        "confidence": 0.41,
+        "label": "G41%"
+      },
+      {
+        "id": "U8",
+        "face": "U",
+        "index": 8,
+        "color": "R",
+        "color_name": "Red",
+        "confidence": 0.094,
+        "label": "R9%"
+      },
+      {
+        "id": "F0",
+        "face": "F",
+        "index": 0,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.153,
+        "label": "W15%"
+      },
+      {
+        "id": "F1",
+        "face": "F",
+        "index": 1,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.419,
+        "label": "B42%"
+      },
+      {
+        "id": "F2",
+        "face": "F",
+        "index": 2,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "F3",
+        "face": "F",
+        "index": 3,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.41,
+        "label": "B41%"
+      },
+      {
+        "id": "F4",
+        "face": "F",
+        "index": 4,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.333,
+        "label": "B33%"
+      },
+      {
+        "id": "F5",
+        "face": "F",
+        "index": 5,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.119,
+        "label": "W12%"
+      },
+      {
+        "id": "F6",
+        "face": "F",
+        "index": 6,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.442,
+        "label": "B44%"
+      },
+      {
+        "id": "F7",
+        "face": "F",
+        "index": 7,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.161,
+        "label": "B16%"
+      },
+      {
+        "id": "F8",
+        "face": "F",
+        "index": 8,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.05,
+        "label": "B5%"
+      },
+      {
+        "id": "R0",
+        "face": "R",
+        "index": 0,
+        "color": "B",
+        "color_name": "Blue",
+        "confidence": 0.398,
+        "label": "B40%"
+      },
+      {
+        "id": "R1",
+        "face": "R",
+        "index": 1,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "R2",
+        "face": "R",
+        "index": 2,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "R3",
+        "face": "R",
+        "index": 3,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "R4",
+        "face": "R",
+        "index": 4,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "R5",
+        "face": "R",
+        "index": 5,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "R6",
+        "face": "R",
+        "index": 6,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "R7",
+        "face": "R",
+        "index": 7,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "R8",
+        "face": "R",
+        "index": 8,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      }
+    ],
+    "1": [
+      {
+        "id": "D0",
+        "face": "D",
+        "index": 0,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "D1",
+        "face": "D",
+        "index": 1,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "D2",
+        "face": "D",
+        "index": 2,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "D3",
+        "face": "D",
+        "index": 3,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "D4",
+        "face": "D",
+        "index": 4,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "D5",
+        "face": "D",
+        "index": 5,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "D6",
+        "face": "D",
+        "index": 6,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "D7",
+        "face": "D",
+        "index": 7,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "D8",
+        "face": "D",
+        "index": 8,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B0",
+        "face": "B",
+        "index": 0,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B1",
+        "face": "B",
+        "index": 1,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B2",
+        "face": "B",
+        "index": 2,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B3",
+        "face": "B",
+        "index": 3,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B4",
+        "face": "B",
+        "index": 4,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B5",
+        "face": "B",
+        "index": 5,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B6",
+        "face": "B",
+        "index": 6,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B7",
+        "face": "B",
+        "index": 7,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "B8",
+        "face": "B",
+        "index": 8,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L0",
+        "face": "L",
+        "index": 0,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L1",
+        "face": "L",
+        "index": 1,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L2",
+        "face": "L",
+        "index": 2,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L3",
+        "face": "L",
+        "index": 3,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L4",
+        "face": "L",
+        "index": 4,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L5",
+        "face": "L",
+        "index": 5,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L6",
+        "face": "L",
+        "index": 6,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L7",
+        "face": "L",
+        "index": 7,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      },
+      {
+        "id": "L8",
+        "face": "L",
+        "index": 8,
+        "color": "W",
+        "color_name": "White",
+        "confidence": 0.78,
+        "label": "W78%"
+      }
+    ]
+  }
+}
