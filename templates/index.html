@@ -10,7 +10,7 @@
   <main class="page-grid">
     <section class="quadrant feed-quadrant" id="quadrant-1">
       <header class="feed-header">
-        <h2>Quadrant 1: Camera 0</h2>
+        <h2>Camera 0</h2>
       </header>
       <div class="feed-shell">
         <img id="feed-0" class="camera-feed" src="{{ url_for('stream', camera_id='0') }}" alt="Camera 0 stream" />
@@ -25,8 +25,8 @@
         <h3>ROI Editor</h3>
         <label for="active-camera">Editable Camera</label>
         <select id="active-camera">
-          <option value="0">Camera 0 (Quadrant 1)</option>
-          <option value="1">Camera 1 (Quadrant 3)</option>
+          <option value="0">Camera 0</option>
+          <option value="1">Camera 1</option>
         </select>
         <p class="hint">Drag ROI boxes to move. Drag the corner handle to resize.</p>
       </div>
@@ -46,7 +46,7 @@
 
     <section class="quadrant feed-quadrant" id="quadrant-3">
       <header class="feed-header">
-        <h2>Quadrant 3: Camera 1</h2>
+        <h2>Camera 1</h2>
       </header>
       <div class="feed-shell">
         <img id="feed-1" class="camera-feed" src="{{ url_for('stream', camera_id='1') }}" alt="Camera 1 stream" />

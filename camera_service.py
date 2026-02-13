@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 import threading
 import time
-from typing import Any, Dict, Iterable
+from typing import Any, Dict, Iterable, List
 
 
 class CameraStream:
@@ -34,6 +34,7 @@ class CameraStream:
         self._error = "Initializing"
 
         self._opencv_cap = None
+        self._active_opencv_device = str(camera_id)
         self._picamera = None
         self._reconnect_interval = max(reconnect_interval, 0.1)
         self._next_reconnect_at = 0.0
@@ -47,6 +48,7 @@ class CameraStream:
         return {
             "camera_id": self.camera_id,
             "source": self._source,
+            "opencv_device": self._active_opencv_device,
             "error": self._error,
         }
 
@@ -107,6 +109,25 @@ class CameraStream:
         backend_pref = os.getenv(f"CAMERA_{self.camera_id}_BACKEND", os.getenv("CAMERA_BACKEND", "auto")).lower()
         self._close_source()
 
+        if backend_pref in ("auto", "opencv") and self._cv2 is not None:
+            open_errors: List[str] = []
+            for device in self._opencv_candidate_devices():
+                try:
+                    cap = self._open_opencv_capture(device)
+                    if cap is None:
+                        open_errors.append(f"device {device}: not opened")
+                        continue
+
+                    self._opencv_cap = cap
+                    self._active_opencv_device = str(device)
+                    self._source = "opencv"
+                    self._error = ""
+                    self._next_reconnect_at = 0.0
+                    return
+                except Exception as exc:
+                    open_errors.append(f"device {device}: {exc}")
+            self._error = f"OpenCV camera unavailable: {'; '.join(open_errors)[:220]}"
+
         if backend_pref in ("auto", "picamera2") and self._picamera2_class is not None and self._cv2 is not None:
             try:
                 camera = self._picamera2_class(self.camera_id)
@@ -123,27 +144,115 @@ class CameraStream:
             except Exception as exc:
                 self._error = f"Picamera2 unavailable: {exc}"
 
-        if backend_pref in ("auto", "opencv") and self._cv2 is not None:
-            try:
-                cap = self._cv2.VideoCapture(self.camera_id)
-                if cap is not None and cap.isOpened():
-                    cap.set(self._cv2.CAP_PROP_FRAME_WIDTH, self.width)
-                    cap.set(self._cv2.CAP_PROP_FRAME_HEIGHT, self.height)
-                    cap.set(self._cv2.CAP_PROP_FPS, self.fps)
-                    self._opencv_cap = cap
-                    self._source = "opencv"
-                    self._error = ""
-                    self._next_reconnect_at = 0.0
-                    return
-                if cap is not None:
-                    cap.release()
-            except Exception as exc:
-                self._error = f"OpenCV camera unavailable: {exc}"
-
         if self._cv2 is None or self._np is None:
             self._error = "opencv-python and numpy are required for camera streaming"
         elif not self._error:
             self._error = "No camera backend available"
+
+    def _parse_device_token(self, token: str):
+        token = token.strip()
+        if not token:
+            return None
+        if token.startswith("/dev/video"):
+            return token
+        try:
+            return int(token)
+        except Exception:
+            return None
+
+    def _opencv_candidate_devices(self) -> List[str | int]:
+        values: List[str | int] = []
+
+        path_override = os.getenv(f"CAMERA_{self.camera_id}_DEVICE_PATH", "").strip()
+        if path_override:
+            values.append(path_override)
+
+        single_override = os.getenv(f"CAMERA_{self.camera_id}_DEVICE", "").strip()
+        parsed_single = self._parse_device_token(single_override)
+        if parsed_single is not None:
+            values.append(parsed_single)
+
+        values.append(f"/dev/video{self.camera_id}")
+        values.append(self.camera_id)
+
+        per_camera_fallback = os.getenv(f"CAMERA_{self.camera_id}_FALLBACKS", "").strip()
+        if per_camera_fallback:
+            for part in per_camera_fallback.split(","):
+                parsed = self._parse_device_token(part)
+                if parsed is not None:
+                    values.append(parsed)
+
+        global_probe = os.getenv("CAMERA_PROBE_INDICES", "").strip()
+        if global_probe:
+            for part in global_probe.split(","):
+                parsed = self._parse_device_token(part)
+                if parsed is not None:
+                    values.append(parsed)
+
+        deduped: List[str | int] = []
+        seen: set[str] = set()
+        for value in values:
+            key = str(value)
+            if key in seen:
+                continue
+            if isinstance(value, int) and value < 0:
+                continue
+            seen.add(key)
+            deduped.append(value)
+        return deduped
+
+    def _warmup_capture(self, cap, tries: int = 20) -> bool:
+        for _ in range(tries):
+            ok, frame = cap.read()
+            if ok and frame is not None and getattr(frame, "size", 0) > 0:
+                return True
+            time.sleep(0.03)
+        return False
+
+    def _apply_capture_profile(self, cap, fourcc: str | None) -> bool:
+        if fourcc and hasattr(self._cv2, "VideoWriter_fourcc"):
+            cap.set(self._cv2.CAP_PROP_FOURCC, self._cv2.VideoWriter_fourcc(*fourcc))
+        cap.set(self._cv2.CAP_PROP_FRAME_WIDTH, self.width)
+        cap.set(self._cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+        cap.set(self._cv2.CAP_PROP_FPS, self.fps)
+        if hasattr(self._cv2, "CAP_PROP_BUFFERSIZE"):
+            cap.set(self._cv2.CAP_PROP_BUFFERSIZE, 1)
+        return self._warmup_capture(cap)
+
+    def _open_opencv_capture(self, device):
+        backend_ids: List[int | None] = [None]
+        if hasattr(self._cv2, "CAP_V4L2"):
+            backend_ids.insert(0, self._cv2.CAP_V4L2)
+
+        for backend_id in backend_ids:
+            cap = None
+            try:
+                if backend_id is None:
+                    cap = self._cv2.VideoCapture(device)
+                else:
+                    cap = self._cv2.VideoCapture(device, backend_id)
+
+                if cap is None or not cap.isOpened():
+                    if cap is not None:
+                        cap.release()
+                    continue
+
+                if self._apply_capture_profile(cap, "MJPG"):
+                    return cap
+
+                if self._apply_capture_profile(cap, "YUYV"):
+                    return cap
+
+                if self._apply_capture_profile(cap, None):
+                    return cap
+
+                cap.release()
+            except Exception:
+                if cap is not None:
+                    cap.release()
+                continue
+
+        return None
 
     def _grab_frame(self):
         if self._source == "picamera2" and self._picamera is not None and self._cv2 is not None:
@@ -159,7 +268,7 @@ class CameraStream:
             ok, frame = self._opencv_cap.read()
             if ok:
                 return frame
-            self._error = "OpenCV read failed"
+            self._error = f"OpenCV read failed (device {self._active_opencv_device})"
             self._open_source()
             return None
 

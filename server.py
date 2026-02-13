@@ -92,6 +92,22 @@ def frame_to_jpeg(frame) -> bytes | None:
     return encoded.tobytes()
 
 
+def fallback_frame_to_jpeg(camera_id: str) -> bytes | None:
+    if cv2 is None or np is None:
+        return None
+
+    status = camera_manager.status().get(camera_id, {})
+    error_text = str(status.get("error") or "No frame available")
+    source = str(status.get("source") or "none")
+
+    frame = np.full((480, 720, 3), (230, 236, 241), dtype=np.uint8)
+    cv2.putText(frame, f"Camera {camera_id}", (24, 64), cv2.FONT_HERSHEY_SIMPLEX, 1.1, (34, 63, 79), 3, cv2.LINE_AA)
+    cv2.putText(frame, f"Source: {source}", (24, 108), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (34, 63, 79), 2, cv2.LINE_AA)
+    cv2.putText(frame, error_text[:72], (24, 154), cv2.FONT_HERSHEY_SIMPLEX, 0.62, (34, 63, 79), 2, cv2.LINE_AA)
+    cv2.rectangle(frame, (14, 14), (706, 466), (71, 126, 146), 3)
+    return frame_to_jpeg(frame)
+
+
 def classify_hsv(mean_hsv: Tuple[float, float, float]) -> Tuple[str, float]:
     h, s, v = mean_hsv
 
@@ -223,8 +239,10 @@ def stream_generator(camera_id: str):
         jpeg = frame_to_jpeg(frame)
 
         if jpeg is None:
-            time.sleep(0.05)
-            continue
+            jpeg = fallback_frame_to_jpeg(camera_id)
+            if jpeg is None:
+                time.sleep(0.05)
+                continue
 
         yield (
             b"--frame\r\n"
